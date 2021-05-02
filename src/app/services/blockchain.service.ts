@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ethers} from 'ethers';
-import * as abi from '../../../abis/HelloWorld.json';
+import * as abi from '../../../abis/AdvertContract.json';
 
 declare const window: any;
 
@@ -13,13 +13,24 @@ export class BlockchainService {
   provider: any;
   signer: any;
   contract: any;
+  signedContract: any;
+  CONTRACT_ADDRESS: string = abi.networks['3'].address;
+
+  ABI: any[] = ['function receiveEther() payable public',
+    'function getBalance() public view returns (uint)',
+    'function withdrawEtherTo(address payable _to) public'];
 
   constructor() {
     if (typeof window.ethereum !== 'undefined') {
       console.log('Meta installed');
       this.provider = new ethers.providers.Web3Provider(window.ethereum);
       this.signer = this.provider.getSigner();
+      this.setContract();
     }
+  }
+
+  private setContract(): void {
+    this.contract = new ethers.Contract(this.CONTRACT_ADDRESS, this.ABI, this.provider);
   }
 
   public async enableMetamask(): Promise<any> {
@@ -29,23 +40,40 @@ export class BlockchainService {
 
     const balance = await window.ethereum.request({method: 'eth_getBalance', params: [this.account, 'latest']});
     // tslint:disable-next-line:radix
-    console.log(parseInt(balance) / 10 ** 18);
+    console.log(parseInt(balance) / (10 ** 18));
+    this.signedContract = this.contract.connect(this.signer);
   }
 
-  callHello(): void {
-    this.provider.getBlockNumber().then(res => {
-      // console.log(res);
-    });
-    this.setContract();
-    this.contract.SayHello().then(res => console.log(res));
+  public sendMoney(): void {
+
+    // Fix von ricmoo @ Github
+    const dai = ethers.utils.parseEther('0.1');
+    const overrides = {
+      value: dai
+    };
+    this.signedContract.receiveEther(overrides).then(res => console.log(res));
   }
 
-  private setContract(): void {
-    this.contract = new ethers.Contract(abi.networks['3'].address, abi.abi, this.provider);
+  public getBalance(): void {
+
+    console.log(this.contract);
+
+    this.contract.getBalance().then(res => console.log(parseInt(res, 16)));
   }
 
-  public setHello(gruss: string): void {
-    this.contract = this.contract.connect(this.signer);
-    this.contract.SetHello('Wenn das klappt kack ich ab').then(res => console.log('EUREKA'));
+  public withdrawEther(): void {
+    const myAddress = '0x8ffE4de27e4A3E0f2D6A16C6Ee17dEB69aa8627c';
+    this.signedContract.withdrawEtherTo(myAddress).then();
   }
+
+  // callHello(): void {
+  //   this.contract.SayHello().then(res => console.log(res));
+  // }
+  //
+  // public setHello(gruss: string): void {
+  //   this.contract.SetHello('MOOIN').then(res => console.log('EUREKA'));
+  // }
+
 }
+
+

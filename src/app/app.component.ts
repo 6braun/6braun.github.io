@@ -74,4 +74,8 @@ export class AppComponent implements OnInit {
       console.log(error);
     });
   }
+
+  public withdrawEther(): void{
+    this.blockService.withdrawEther();
+  }
 }
