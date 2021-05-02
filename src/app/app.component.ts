@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {DomSanitizer} from '@angular/platform-browser';
 import {ApiService} from './api.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {BlockchainService} from './services/blockchain.service';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,8 @@ export class AppComponent implements OnInit {
   public constructor(private sanitizer: DomSanitizer,
                      private api: ApiService,
                      private http: HttpClient,
-                     private formBuilder: FormBuilder) {
+                     private formBuilder: FormBuilder,
+                     public blockService: BlockchainService) {
     api.getBeluga().subscribe((baseImage: any) => {
       const blob = new Blob([baseImage]);
       const unsafeImg = URL.createObjectURL(blob);
@@ -31,7 +33,7 @@ export class AppComponent implements OnInit {
       const blob = new Blob([baseImage]);
       const unsafeImg = URL.createObjectURL(blob);
       this.upperRight = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
-  });
+    });
   }
 
   ngOnInit(): void {
