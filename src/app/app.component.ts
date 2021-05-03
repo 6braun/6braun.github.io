@@ -38,7 +38,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.fileUploadForm = this.formBuilder.group({
-      uploadedImage: ['']
+      uploadedImage: [''],
+      etherSend: 0
     });
   }
 
@@ -54,6 +55,7 @@ export class AppComponent implements OnInit {
     const file = event.target.files[0];
     this.fileInputLabel = file.name;
     this.fileUploadForm.get('uploadedImage').setValue(file);
+    console.log(this.fileUploadForm);
   }
 
 
@@ -65,6 +67,7 @@ export class AppComponent implements OnInit {
 
     const formData = new FormData();
     formData.append('uploadedImage', this.fileUploadForm.get('uploadedImage').value);
+    formData.append('etherSend', this.fileUploadForm.get('etherSend').value);
 
 
     this.http.post<any>('http://localhost:3000/upload', formData).subscribe(response => {

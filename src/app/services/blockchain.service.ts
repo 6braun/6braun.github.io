@@ -44,7 +44,15 @@ export class BlockchainService {
     this.signedContract = this.contract.connect(this.signer);
   }
 
+  public sendMoney(): void {
 
+    // Fix von ricmoo @ Github
+    const dai = ethers.utils.parseEther('0.1');
+    const overrides = {
+      value: dai
+    };
+    this.signedContract.receiveEther(overrides).then(res => console.log(res));
+  }
 
   public getBalance(): void {
 

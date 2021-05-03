@@ -44,65 +44,13 @@
         tempor
         eget blandit risus.</p>
 
-      <p>
-
-        Integer mollis ac velit bibendum ullamcorper. Ut vestibulum malesuada iaculis. Duis rhoncus ante felis, at
-        convallis
-        purus ullamcorper quis. Quisque at dolor eget sapien gravida blandit quis id nunc. Suspendisse potenti. Sed
-        accumsan
-        purus erat, et dignissim neque rutrum at. Nunc non odio felis. Class aptent taciti sociosqu ad litora torquent
-        per
-        conubia nostra, per inceptos himenaeos. Sed quis velit et nunc molestie aliquet sit amet bibendum libero.
-        Phasellus
-        dolor justo, dictum sed augue mattis, tristique tincidunt risus. Vestibulum volutpat malesuada hendrerit. In
-        luctus
-        orci enim. Quisque porta augue ac risus ullamcorper dignissim. Fusce sed nulla lorem. Aliquam in magna
-        ultricies,
-        rhoncus lacus vel, tincidunt nisi. Aliquam bibendum nunc id lacus venenatis mollis quis lobortis dui.
-      </p>
-      <p>
-        Aenean accumsan odio a tincidunt faucibus. Proin ligula magna, imperdiet consequat gravida nec, fringilla at
-        augue.
-        Proin id pulvinar est, ut suscipit dolor. Fusce ac est et eros tristique bibendum vitae eget nisl. Cras sed
-        libero
-        lectus. Suspendisse lectus dui, dapibus at nibh non, porttitor posuere nisl. Integer pellentesque tristique
-        neque,
-        et euismod augue dignissim sed. Quisque hendrerit semper facilisis. Cras venenatis vulputate nunc in tempus.
-        Mauris
-        ante urna, eleifend vitae mauris non, condimentum sollicitudin nisl. Donec pretium, enim a congue ullamcorper,
-        est
-        purus efficitur erat, quis molestie nunc eros a urna. Vivamus hendrerit odio at aliquam egestas. Etiam interdum
-        sollicitudin porta. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-        Cras
-        non finibus enim.
-      </p>
-      <p>
-        Vivamus non magna dui. Integer vitae diam nulla. Nullam ex mauris, efficitur id erat sit amet, ultricies
-        placerat
-        arcu. Aenean quis elit finibus, sagittis felis interdum, cursus risus. Suspendisse potenti. Sed non dolor
-        placerat,
-        maximus enim in, posuere nisi. In hac habitasse platea dictumst. Nam at massa vel eros bibendum dictum vel at
-        ante.
-        Mauris ut massa elementum nisl volutpat accumsan. Donec id elit faucibus orci consectetur interdum ut eu libero.
-        Praesent rhoncus libero nibh, nec ultricies sapien vulputate a. Proin ac dolor odio. Curabitur elementum sodales
-        mi
-        non cursus. Aliquam vel mi sit amet elit sodales pellentesque. Ut sagittis arcu non augue laoreet mollis.
-      </p>
-      <p>
-      Donec feugiat feugiat purus in porta. Quisque faucibus mauris et risus porttitor bibendum. Quisque elementum vitae
-      odio ac accumsan. Aliquam sed mauris nec mi venenatis congue. Integer quis nunc at eros bibendum varius vel vel
-      mauris. Curabitur semper vehicula odio, vitae fringilla nisi placerat non. Praesent vitae neque eget lacus auctor
-      accumsan. Aenean convallis ut leo ac sagittis. Nam sagittis porta urna id tincidunt. Duis id ligula non lorem
-      malesuada sodales. Sed ultricies pellentesque purus, vel bibendum tortor maximus id. Sed ut cursus erat, sit amet
-      eleifend arcu. Nam egestas nisi vel sem tempor, ac dignissim quam elementum. Donec ipsum neque, euismod quis felis
-      pretium, finibus tristique nulla. Cras vel ornare nunc. Proin vel blandit nisi.
-      </p>
     </div>
     <div style="display:flex;">
       <div class="container" style="height: 100vh">
         <img [src]='upperRight' height="400" width="500" style="margin:20px 0px">
         <form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()" style="width: 500px">
           <div class="row">
+            <input type="text" formControlName="etherSend">
             <div class="col-sm-6">
               <div class="custom-file">
                 <input type="file" class="custom-file-input" id="upperRight" name="uploadedImage"
