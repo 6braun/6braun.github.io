@@ -16,9 +16,12 @@ export class BlockchainService {
   signedContract: any;
   CONTRACT_ADDRESS: string = abi.networks['3'].address;
 
-  ABI: any[] = ['function receiveEther() payable public',
+  ABI: any[] = [
+    'function receiveEther() payable public',
     'function getBalance() public view returns (uint)',
-    'function withdrawEtherTo(address payable _to) public'];
+    'function withdrawEtherTo(address payable _to) public',
+    'function receiveNewAd(uint _id, uint _wei) payable public',
+    'function getFunds(uint _id) public view returns(uint)'];
 
   constructor() {
     if (typeof window.ethereum !== 'undefined') {
@@ -33,6 +36,7 @@ export class BlockchainService {
     this.contract = new ethers.Contract(this.CONTRACT_ADDRESS, this.ABI, this.provider);
   }
 
+
   public async enableMetamask(): Promise<any> {
     const accounts = await window.ethereum.request({method: 'eth_requestAccounts'});
     this.account = accounts[0];
@@ -44,14 +48,15 @@ export class BlockchainService {
     this.signedContract = this.contract.connect(this.signer);
   }
 
-  public sendMoney(): void {
+  // tslint:disable-next-line:typedef
+  public sendMoney(ether: string) {
 
     // Fix von ricmoo @ Github
-    const dai = ethers.utils.parseEther('0.1');
+    const dai = ethers.utils.parseEther(ether);
     const overrides = {
       value: dai
     };
-    this.signedContract.receiveEther(overrides).then(res => console.log(res));
+    return this.signedContract.receiveEther(overrides);
   }
 
   public getBalance(): void {
@@ -59,6 +64,10 @@ export class BlockchainService {
     console.log(this.contract);
 
     this.contract.getBalance().then(res => console.log(parseInt(res, 16)));
+  }
+
+  public getFunds(id): void {
+    this.signedContract.getFunds(id).then(res => console.log(res));
   }
 
   public withdrawEther(): void {

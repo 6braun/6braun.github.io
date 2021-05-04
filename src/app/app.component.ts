@@ -59,8 +59,8 @@ export class AppComponent implements OnInit {
   }
 
 
-  public onFormSubmit(): void {
-    if (!this.fileUploadForm.get('uploadedImage').value) {
+  public async onFormSubmit(): Promise<void> {
+    if (!this.fileUploadForm.get('uploadedImage').value || !this.fileUploadForm.get('etherSend')) {
       console.log('Keine Datei vorhanden');
       return;
     }
@@ -70,15 +70,19 @@ export class AppComponent implements OnInit {
     formData.append('etherSend', this.fileUploadForm.get('etherSend').value);
 
 
-    this.http.post<any>('http://localhost:3000/upload', formData).subscribe(response => {
-      console.log(response.uploadedFile);
-      // An dieser Stelle kann die Response verarbeiten;
-    }, error => {
-      console.log(error);
+    // Diese Lösung hört auf lediglich auf die Bestätigung von Metamask, dass die Transaktion gesendet wurde.
+    // In Zukunft zusätzlich auf bestätigte Blöcke hören!!
+    this.blockService.sendMoney(this.fileUploadForm.get('etherSend').value).then((res) => {
+      this.http.post<any>('http://localhost:3000/upload', formData).subscribe(response => {
+        console.log(response);
+        // An dieser Stelle kann die Response verarbeiten;
+      }, error => {
+        console.log(error);
+      });
     });
   }
 
-  public withdrawEther(): void{
+  public withdrawEther(): void {
     this.blockService.withdrawEther();
   }
 }
