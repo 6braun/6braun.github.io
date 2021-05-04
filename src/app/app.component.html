@@ -1,10 +1,11 @@
 <div id="page" style="background: #f2f2f2; height: 100%">
-  <button type="button" (click)="blockService.enableMetamask()">EnableMeta</button>
-<!--  <button type="button" (click)="blockService.callHello()">Call Hello</button>-->
-  <button type="button" (click)="blockService.getFunds(3)">getFunds</button>
-  <button type="button" (click)="blockService.getBalance()">GetBalance</button>
+  <button type="button" (click)="blockService.enableMetamask()">EnableMetaMask</button>
+  <button type="button" (click)="blockService.getBalance()">GetContractBalance</button>
   <button type="button" (click)="withdrawEther()">WithdrawFunds</button>
-
+  <button type="button" (click)="getFunds()">getFundsFor:</button>
+  <input type="text" [(ngModel)]="idForFunds" placeholder="Id For Funds">
+  <input type="text" [(ngModel)]="fundsToAdd" placeholder="Funds To Add">
+  <button type="text" (click)="augmentAds()"></button>
 
 
   <div style="display:flex;">
@@ -39,9 +40,7 @@
         felis
         eget fringilla. Donec faucibus augue quis elit eleifend auctor. Quisque sit amet orci pulvinar, consequat lorem
         quis, lacinia magna. Morbi condimentum sit amet enim non varius. Pellentesque vel magna dolor. Praesent sit amet
-        facilisis nisi. Aliquam ut dolor vitae metus euismod blandit in eget lectus. Integer sed neque eu mi suscipit
-        tempor
-        eget blandit risus.</p>
+        facilisis nisi. </p>
 
     </div>
     <div style="display:flex;">

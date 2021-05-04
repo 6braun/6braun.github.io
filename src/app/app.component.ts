@@ -5,6 +5,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {ApiService} from './api.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {BlockchainService} from './services/blockchain.service';
+import {ethers} from 'ethers';
 
 @Component({
   selector: 'app-root',
@@ -19,21 +20,18 @@ export class AppComponent implements OnInit {
   fileUploadForm: FormGroup;
   fileInputLabel: string;
 
+  idForFunds: string;
+  fundsToAdd: string;
+
   public constructor(private sanitizer: DomSanitizer,
                      private api: ApiService,
                      private http: HttpClient,
                      private formBuilder: FormBuilder,
                      public blockService: BlockchainService) {
-    api.getBeluga().subscribe((baseImage: any) => {
-      const blob = new Blob([baseImage]);
-      const unsafeImg = URL.createObjectURL(blob);
-      this.upperLeft = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
-    });
-    api.getFoxes().subscribe((baseImage: any) => {
-      const blob = new Blob([baseImage]);
-      const unsafeImg = URL.createObjectURL(blob);
-      this.upperRight = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
-    });
+
+    // Bilder werden einzeln und zufällig geladen, da es als .zip nicht klappen möchte :)
+    this.getImageFromApi();
+    this.getImageFromApi();
   }
 
   ngOnInit(): void {
@@ -43,13 +41,35 @@ export class AppComponent implements OnInit {
     });
   }
 
-  // public switchImage(): void {
-  //   this.api.getFoxes().subscribe((baseImage: any) => {
-  //     const blob = new Blob([baseImage]);
-  //     const unsafeImg = URL.createObjectURL(blob);
-  //     this.upperLeft = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
-  //   });
-  // }
+  public getImageFromApi(): void {
+    this.api.getImage().subscribe((baseImage: any) => {
+      const blob = new Blob([baseImage]);
+      const unsafeImg = URL.createObjectURL(blob);
+
+      this.upperRight === undefined ?
+        this.upperRight = this.sanitizer.bypassSecurityTrustUrl(unsafeImg) :
+        this.upperLeft = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
+    });
+  }
+
+  public getFunds(): void {
+    this.blockService.getFunds(parseInt(this.idForFunds, 10))
+      .then(res => console.log(console.log(parseInt(res._hex, 16))
+      ));
+  }
+
+  public augmentAds(): void {
+    const id = parseInt(this.idForFunds, 10);
+    const funds = parseInt(this.fundsToAdd, 10);
+
+    const dai = ethers.utils.parseEther(this.fundsToAdd);
+    const overrides = {
+      value: dai
+    };
+    this.blockService.augmentAds(id, funds, overrides).then(res => {
+      console.log('Funds Added!');
+    });
+  }
 
   public onFileSelect(event): void {
     const file = event.target.files[0];

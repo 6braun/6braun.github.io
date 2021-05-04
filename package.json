@@ -23,6 +23,7 @@
     "bootstrap": "^4.5.3",
     "ethers": "^5.1.4",
     "jquery": "^3.5.1",
+    "jszip": "^3.6.0",
     "ng2-file-upload": "^1.4.0",
     "ngx-toastr": "^13.1.0",
     "rxjs": "~6.6.0",

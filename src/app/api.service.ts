@@ -11,15 +11,9 @@ export class ApiService {
   public constructor(private http: HttpClient, private sanitizer: DomSanitizer) {
   }
 
-  public getBeluga(): Observable<any> {
-    return this.http.get('http://localhost:3000/beluga', {
-      headers: new HttpHeaders().append('Content-Type', 'image/jpg'),
-      responseType: 'blob'
-    });
-  }
 
-  public getFoxes(): Observable<any> {
-    return this.http.get('http://localhost:3000/foxes', {
+  public getImage(): Observable<any> {
+    return this.http.get('http://localhost:3000/getImage', {
       headers: new HttpHeaders().append('Content-Type', 'image/jpg'),
       responseType: 'blob'
     });

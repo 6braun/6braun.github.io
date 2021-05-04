@@ -20,8 +20,9 @@ export class BlockchainService {
     'function receiveEther() payable public',
     'function getBalance() public view returns (uint)',
     'function withdrawEtherTo(address payable _to) public',
-    'function receiveNewAd(uint _id, uint _wei) payable public',
-    'function getFunds(uint _id) public view returns(uint)'];
+    'function augmentAds(uint _id, uint _wei) payable public',
+    'function getFunds(uint _id) public view returns(uint)',
+    'function getCounter(uint _id) public view returns(uint)'];
 
   constructor() {
     if (typeof window.ethereum !== 'undefined') {
@@ -59,6 +60,10 @@ export class BlockchainService {
     return this.signedContract.receiveEther(overrides);
   }
 
+  public augmentAds(id: number, funds: number, options ?: any): any {
+    return this.signedContract.augmentAds(id, funds);
+  }
+
   public getBalance(): void {
 
     console.log(this.contract);
@@ -66,22 +71,15 @@ export class BlockchainService {
     this.contract.getBalance().then(res => console.log(parseInt(res, 16)));
   }
 
-  public getFunds(id): void {
-    this.signedContract.getFunds(id).then(res => console.log(res));
+  public getFunds(id): any {
+    console.log(this.signedContract);
+    return this.signedContract.getFunds(id);
   }
 
   public withdrawEther(): void {
     const myAddress = '0x8ffE4de27e4A3E0f2D6A16C6Ee17dEB69aa8627c';
     this.signedContract.withdrawEtherTo(myAddress).then();
   }
-
-  // callHello(): void {
-  //   this.contract.SayHello().then(res => console.log(res));
-  // }
-  //
-  // public setHello(gruss: string): void {
-  //   this.contract.SetHello('MOOIN').then(res => console.log('EUREKA'));
-  // }
 
 }
 
