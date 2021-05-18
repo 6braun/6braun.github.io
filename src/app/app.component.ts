@@ -62,9 +62,9 @@ export class AppComponent implements OnInit {
     const id = parseInt(this.idForFunds, 10);
     const funds = parseInt(this.fundsToAdd, 10);
 
-    const dai = ethers.utils.parseEther(this.fundsToAdd);
+    const payment = ethers.utils.parseEther(this.fundsToAdd);
     const overrides = {
-      value: dai
+      value: payment
     };
     this.blockService.augmentAds(id, funds, overrides).then(res => {
       console.log('Funds Added!');
@@ -95,7 +95,7 @@ export class AppComponent implements OnInit {
     this.blockService.sendMoney(this.fileUploadForm.get('etherSend').value).then((res) => {
       this.http.post<any>('http://localhost:3000/upload', formData).subscribe(response => {
         console.log(response);
-        // An dieser Stelle kann die Response verarbeiten;
+        // An dieser Stelle kann die Response verarbeitet werden;
       }, error => {
         console.log(error);
       });

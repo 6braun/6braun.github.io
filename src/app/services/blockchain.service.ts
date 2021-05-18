@@ -61,7 +61,7 @@ export class BlockchainService {
   }
 
   public augmentAds(id: number, funds: number, options ?: any): any {
-    return this.signedContract.augmentAds(id, funds);
+    return this.signedContract.augmentAds(id, funds, options);
   }
 
   public getBalance(): void {
