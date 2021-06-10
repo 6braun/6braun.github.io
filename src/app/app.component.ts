@@ -54,7 +54,13 @@ export class AppComponent implements OnInit {
 
   public getFunds(): void {
     this.blockService.getFunds(parseInt(this.idForFunds, 10))
-      .then(res => console.log(console.log(parseInt(res._hex, 16))
+      .then(res => console.log(parseInt(res._hex, 16)
+      ));
+  }
+
+  public getCounter(): void {
+    this.blockService.getCounter(parseInt(this.idForFunds, 10))
+      .then(res => console.log(parseInt(res._hex, 16)
       ));
   }
 

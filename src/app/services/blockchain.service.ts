@@ -76,6 +76,11 @@ export class BlockchainService {
     return this.signedContract.getFunds(id);
   }
 
+  public getCounter(id): any {
+    console.log(this.signedContract);
+    return this.signedContract.getCounter(id);
+  }
+
   public withdrawEther(): void {
     const myAddress = '0x8ffE4de27e4A3E0f2D6A16C6Ee17dEB69aa8627c';
     this.signedContract.withdrawEtherTo(myAddress).then();

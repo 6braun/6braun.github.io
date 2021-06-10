@@ -1,13 +1,18 @@
 <div id="page" style="background: #f2f2f2; height: 100%">
-  <button type="button" (click)="blockService.enableMetamask()">EnableMetaMask</button>
-  <button type="button" (click)="blockService.getBalance()">GetContractBalance</button>
-  <button type="button" (click)="withdrawEther()">WithdrawFunds</button>
-  <button type="button" (click)="getFunds()">getFundsFor:</button>
-  <input type="text" [(ngModel)]="idForFunds" placeholder="Id For Funds">
-  <input type="text" [(ngModel)]="fundsToAdd" placeholder="Funds To Add">
-  <button type="text" (click)="augmentAds()"></button>
-
-
+  <div style="display: flex;justify-content: space-between;padding-top: 20px;">
+  <div>
+  <button class="btn btn-outline-secondary" type="button" (click)="blockService.enableMetamask()">Enable MetaMask</button>
+  <button class="btn btn-outline-secondary" type="button" (click)="blockService.getBalance()">Get ContractBalance</button>
+  <button class="btn btn-outline-secondary" type="button" (click)="withdrawEther()">Withdraw Funds</button>
+</div>
+<div style="display: flex;">
+  <button class="btn btn-outline-secondary" type="button" (click)="getFunds()">get Funds For:</button>
+  <button class="btn btn-outline-secondary" type="button" (click)="getCounter()">get Counter For:</button>
+  <input style="width: 200px;" class="form-control" type="text" [(ngModel)]="idForFunds" placeholder="Id For Ad">
+  <input style="width: 200px;" class="form-control" type="text" [(ngModel)]="fundsToAdd" placeholder="Funds in Ether">
+  <button class="btn btn-outline-secondary" type="text" (click)="augmentAds()">Add Funds</button>
+</div>
+</div>
   <div style="display:flex;">
     <div class="container" style="height: 100vh">
       <img [src]='upperLeft' height="400" width="500" style="margin:20px 0px">
@@ -46,21 +51,6 @@
     <div style="display:flex;">
       <div class="container" style="height: 100vh">
         <img [src]='upperRight' height="400" width="500" style="margin:20px 0px">
-        <form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()" style="width: 500px">
-          <div class="row">
-            <input type="text" formControlName="etherSend">
-            <div class="col-sm-6">
-              <div class="custom-file">
-                <input type="file" class="custom-file-input" id="upperRight" name="uploadedImage"
-                       (change)="onFileSelect($event)" #UploadFileInput>
-                <label class="custom-file-label" for="upperRight">{{fileInputLabel || 'Choose File'}}</label>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <button class="btn btn-primary" type="submit">Upload</button>
-            </div>
-          </div>
-        </form>
       </div>
 
     </div>
